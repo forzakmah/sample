@@ -78,12 +78,11 @@ Request:
 - Specificator: GET  
 - Body: None
 
-Response:  
-success:   
-- 200 List of places[]  
-remark:   
-- The key 'resources' is a jsonObject that contains the field 'mde'.  
-- The key mde is stringified JSON, below is an example of the response
+Response:
+success (HttpStatus 200) places[]
+The key 'resources' is a jsonObject that contains the field 'mde'.<br />  
+The key mde is stringified JSON, below is an example of the response.<br />  
+  
 
 ```json  
 {
@@ -136,7 +135,8 @@ root_place_id:  represent the id of the root place received when user fetch the 
    }
 } 
 ```  
-- Response:
+- Response 
+Success(HttpStatus 200):
 ```json  
 {  
  "id": "65269b25d54f7eaa7160a250",
@@ -162,7 +162,8 @@ The response of the first request contains the place ID of the newly created pla
 }
   
 ```  
-- Response          - Success (httpStatus 207)
+- Response 
+Success (httpStatus 207)
 ```json  
 {
    "devices":[
@@ -178,7 +179,7 @@ The response of the first request contains the place ID of the newly created pla
    "request-id":"4802e208c8e816212501c3ff59619cc0"
 }  
 ```  
-- Error (httpStatus 207)
+Error (httpStatus 207)
 ```json  
 {
    "devices":[
@@ -209,7 +210,7 @@ place_id: identifier of the place
 } 
 ```  
 
-Response:  
+- Response:  
 success (httpStatus 200)
 ```json  
 { "request-id": "2477e34424671b3ea7e2fcdb69e13588"}  
@@ -220,11 +221,11 @@ To remove a place we need to execute 2 requests.
 1st request Delete home gateway :  
 - Endpoint: {cpf_base_url}/devices/:hgw_id  
 - Specificator: DELETE  
-- Params:   
+- Params: 
 hgw_id: identifier of the gateway  
 - Body: None  
-- Response  
-- Success (httpStatus 207)
+- Response
+Success (httpStatus 207)
 ```json  
 {    
     "devices": [    
@@ -248,7 +249,7 @@ if success
 place_id: identifier of the place  
 - Body: None  
 - Response  
-- Success (HttpStatus 200)
+Success (HttpStatus 200)
 ```json  
 { "request-id": "aede04ad11556bc27a4121852e6249aa" }  
 ```  
