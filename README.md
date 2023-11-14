@@ -3,13 +3,13 @@
 
 | Product | Document version | Creation date | Last update |  
 |---------|------------------|---------------|-------------|  
-| MDE | R0 | 20/06/2023 | 20/06/2023 |  
+| MDE | R0 | 14/11/2023    | 14/11/2023  |  
 
 ## Modification
 
-| Date | Comments | Version | Actor               |  
+| Date       | Comments | Version | Actor               |  
 |------------|----------|---------|---------------------|  
-| 20/06/2023 | creation | R0 | Mahmoud ben khedher |  
+| 14/11/2023 | creation | R0 | Mahmoud ben khedher |  
 
 ### Approvals
 
@@ -66,7 +66,7 @@ Request:
  "connector": "registry"
 }
    ```  
-Response:   
+Response:  <br />  
 success:   
 - 200 NO_CONTENT Root place has been correctly created  
 - 403 Root place already exists
@@ -78,11 +78,10 @@ Request:
 - Specificator: GET  
 - Body: None
 
-Response:
-success (HttpStatus 200) places[]
+Response:<br />  
+success (HttpStatus 200) places[] <br />  
 The key 'resources' is a jsonObject that contains the field 'mde'.<br />  
-The key mde is stringified JSON, below is an example of the response.<br />  
-  
+The key mde is stringified JSON, below is an example of the response.<br />
 
 ```json  
 {
@@ -135,7 +134,7 @@ root_place_id:  represent the id of the root place received when user fetch the 
    }
 } 
 ```  
-- Response 
+- Response <br />  
 Success(HttpStatus 200):
 ```json  
 {  
@@ -163,7 +162,7 @@ The response of the first request contains the place ID of the newly created pla
   
 ```  
 - Response 
-Success (httpStatus 207)
+Success (httpStatus 207) <br />
 ```json  
 {
    "devices":[
@@ -179,7 +178,7 @@ Success (httpStatus 207)
    "request-id":"4802e208c8e816212501c3ff59619cc0"
 }  
 ```  
-Error (httpStatus 207)
+Error (httpStatus 207) <br />
 ```json  
 {
    "devices":[
@@ -210,7 +209,7 @@ place_id: identifier of the place
 } 
 ```  
 
-- Response:  
+- Response: <br />    
 success (httpStatus 200)
 ```json  
 { "request-id": "2477e34424671b3ea7e2fcdb69e13588"}  
@@ -224,7 +223,7 @@ To remove a place we need to execute 2 requests.
 - Params: 
 hgw_id: identifier of the gateway  
 - Body: None  
-- Response
+- Response <br />  
 Success (httpStatus 207)
 ```json  
 {    
@@ -241,14 +240,14 @@ Success (httpStatus 207)
 "request-id": "e6e6b16cb963fd9596eb40af85f5f9e6" }  
 ```  
 
-if success  
-2nd request delete place   
+if success  <br />  
+2nd request delete place   <br />
 - Endpoint: {cpf_base_url}/places/:place_id  
 - Specificator: DELETE  
 - Params:   
 place_id: identifier of the place  
 - Body: None  
-- Response  
+- Response  <br />  
 Success (HttpStatus 200)
 ```json  
 { "request-id": "aede04ad11556bc27a4121852e6249aa" }  
