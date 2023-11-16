@@ -25,9 +25,44 @@ The goal of this document is to describe the specifications and requirements of 
 
 The API will be handled via a rest api connection between the cpf microservice and MDE.
 
-#### Place Network object
+### Overview 
+Place feature is used to display the list of home of the authenticated user, each place represent a home gateway.<br />  
+when creating a new place we are adding a new home gateway.<br />
+Below an example of list of homes.
 
-- id (String) Unique identifier for the object.
+![Alt text](ss_homes.png =270x600)
+
+#### Place Data model
+
+```kotlin
+data class Place(
+    val identifier: String,
+    val name: String,
+    val aliases: List<String>,
+    val admin: Boolean = false,
+    val fallback: Boolean = true,
+    val type: String = Place.Type.UNKNOWN.value,
+    val resources: Map<String, String>,
+    val places: List<Place>,
+    val config: Config()
+) {
+    enum class Type(
+        val value: String
+    ) {
+        HOME(value = "home"),
+        ROOM(value = "room"),
+        UNKNOWN(value = "unknown")
+    }
+    
+    data class Config(
+        var color: Int = 0,
+        var icon: Int = 0,
+        val cpeId: String? = null,
+        val productClass: String? = null
+    }
+}
+```
+- identifier (String) Unique identifier for the object.
 - name (String) name of the place.
 - aliases (String[]) array of string that contains aliases of the place
 - admin (Boolean)
@@ -35,6 +70,15 @@ The API will be handled via a rest api connection between the cpf microservice a
 - type (Enum) type of the place (home, room...).
 - resources (Object) contains the stringified field 'mde'
 - places (Place[]) array of places
+- Config is class that contains more details about the home 
+    - color: Color of the home, user can select a color from a predefined list of colors.
+    - icon: Icon of the home, user can select a Icon from a predefined list of icons
+    - cpeId: is the identifier of the gateway it can be mac address if the box is SOP or a formated string if the box is prpl.
+    - productClass is the model or class of the box.
+
+Diagram de class
+
+![Alt text](ss_diag_class_place.png =750x310)
 
 
 ### API responses
@@ -79,7 +123,7 @@ Request:
 - Body: None
 
 Response:<br />  
-success (HttpStatus 200) places[] <br />  
+Success (HttpStatus 200) <br />  
 The key 'resources' is a jsonObject that contains the field 'mde'.<br />  
 The key mde is stringified JSON, below is an example of the response.<br />
 
@@ -144,7 +188,7 @@ Success(HttpStatus 200):
 ```  
 
 2nd Request:  
-The response of the first request contains the place ID of the newly created place, we will use it to create a home gateway 'placeid'  
+The response of the first request contains the place ID of the newly created place, we will use it to create a home gateway.  
 - Endpoint: {cpf_base_url}/devices  
 - Specificator: POST  
 - Body:
@@ -212,7 +256,7 @@ place_id: identifier of the place
 - Response: <br />    
 success (httpStatus 200)
 ```json  
-{ "request-id": "2477e34424671b3ea7e2fcdb69e13588"}  
+{ "request-id": "2477e34424671b3ea7e2fcdb69e13588" }  
 ```  
 
 #### 5) Delete place
@@ -237,7 +281,8 @@ Success (httpStatus 207)
         }    
      }    
     ],    
-"request-id": "e6e6b16cb963fd9596eb40af85f5f9e6" }  
+	"request-id": "e6e6b16cb963fd9596eb40af85f5f9e6"
+}  
 ```  
 
 if success  <br />  
