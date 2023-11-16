@@ -30,7 +30,7 @@ Place feature is used to display the list of home of the authenticated user, eac
 when creating a new place we are adding a new home gateway.<br />
 Below an example of list of homes.
 
-![Alt text](ss_homes.png=270x600)
+[<img src="ss_homes.png" width="270", height="600"/>](ss_homes.png)
 
 #### Place Data model
 
