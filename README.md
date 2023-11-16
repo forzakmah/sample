@@ -78,8 +78,7 @@ data class Place(
 
 Diagram de class
 
-![Alt text](ss_diag_class_place.png =750x310)
-
+<img src="ss_diag_class_place.png" width="750" height="310" />
 
 ### API responses
 
