@@ -26,7 +26,7 @@ The goal of this document is to describe the specifications and requirements of 
 The API will be handled via a rest api connection between the cpf microservice and MDE.
 
 ### Overview 
-Place feature is used to display the list of home of the authenticated user, each place represent a home gateway.<br />  
+Place feature is used to display the list of home of the authenticated user, each place represent a home.<br />  
 when creating a new place we are adding a new home gateway.<br />
 Below an example of list of homes.
 
@@ -108,11 +108,19 @@ Request:
 {  
  "connector": "registry"
 }
-   ```  
+```  
 Response:  <br />  
-success:   
-- 200 NO_CONTENT Root place has been correctly created  
-- 403 Root place already exists
+success (httpStatus 200): <br />
+NO_CONTENT Root place has been correctly created  
+Error (httpStatus 403) <br />
+Root place already exists 
+```json
+{
+  "code": -54,
+  "data": "Operation forbidden, details: User=f7de7e8b-2bc0-45a3-8592-134da2e90b7d, connector=registry, authType=basic, authExtra=undefined an account with this information already exists",
+  "request-id": "d52f75ecaff449dad0e68d94e624679e"
+}
+```
 
 #### 2) Fetch user places
 
@@ -173,7 +181,7 @@ root_place_id:  represent the id of the root place received when user fetch the 
    "type":"home",
    "fallback":true,
    "resources":{
-      "mde":"{\"color\": 0, \"icon\": 0, \"cpeId\": \"<CPE ID, e.g. MAC address or EndpointID>\"}"
+      "mde":"{\"color\": 0, \"icon\": 0, \"cpeId\": \"<CPE ID, e.g. MAC address or EndpointID>\", \"productClass\": \"class\"}"
    }
 } 
 ```  
@@ -185,6 +193,14 @@ Success(HttpStatus 200):
  "request-id": "2477e34424671b3ea7e2fcdb69e13588"
  }  
 ```  
+Error(HttpStatus 400)
+```json
+{
+  "code": -2,
+  "data": "Bad parameter, details: Bad parameter, details: Missing mandatory arguments",
+  "request-id": "c273a99696141ea7cb1640bfbadd7f84"
+}
+```
 
 2nd Request:  
 The response of the first request contains the place ID of the newly created place, we will use it to create a home gateway.  
@@ -247,7 +263,7 @@ place_id: identifier of the place
 {
    "name":"Edited home",
    "resources":{
-      "mde":"{\"color\": 1, \"icon\": 3, \"cpeId\": \"<CPE ID, e.g. MAC address or EndpointID>\"}"
+      "mde":"{\"color\": 1, \"icon\": 3, \"cpeId\": \"<CPE ID, e.g. MAC address or EndpointID>\", \"productClass\": \"class\"}"
    }
 } 
 ```  
@@ -255,8 +271,16 @@ place_id: identifier of the place
 - Response: <br />    
 success (httpStatus 200)
 ```json  
-{ "request-id": "2477e34424671b3ea7e2fcdb69e13588" }  
+{ "request-id": "2477e34424671b3ea7e2fcdb69e13588" } 
 ```  
+Error(HttpStatus 400)
+```json
+{
+  "code": -2,
+  "data": "Bad parameter, details: Bad parameter, details: Missing mandatory arguments",
+  "request-id": "c273a99696141ea7cb1640bfbadd7f84"
+}
+```
 
 #### 5) Delete place
 To remove a place we need to execute 2 requests.      
